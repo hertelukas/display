@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Home</title>
 </head>
 <body>
-<div th:if="${initialized}">
-    Hello!
-</div>
-<div th:else>
-    Setup
-    <form th:action="@{/setup}" method="post">
-        <div><input type="submit" value="Setup"/></div>
+<div>
+    <h1>Allgemeine Einstellungen</h1>
+    <form th:action="@{/general}" method="post">
+        <div>
+            <input type="number" name="lat" th:value="${lat}" step="any">
+            <input type="number" name="lon" th:value="${lon}" step="any">
+            <input type="text" name="iCal" th:value="${iCal}"/>
+            <input type="submit" value="Übernehmen"/>
+        </div>
+    </form>
+    <h1>Bildschirm Einstellungen</h1>
+    <form th:action="@{/display}" method="post">
+        <div>
+            <input type="checkbox" name="checkbox">
+            <input type="submit" value="Aktualisieren">
+        </div>
     </form>
 </div>
 </body>

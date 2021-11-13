@@ -8,23 +8,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DisplayApplication {
 
     private static User user;
-    private static boolean initialized;
 
     public static void main(String[] args) {
         SpringApplication.run(DisplayApplication.class, args);
 
 
         user = User.load();
-        initialized = user != null;
+
+        if(user == null){
+            user = new User();        }
 
     }
 
-    public static boolean isInitialized() {
-        return initialized;
-    }
-
-    public static void setUser(User user) {
-        DisplayApplication.user = user;
-        user.save();
+    public static User getUser() {
+        return user;
     }
 }
