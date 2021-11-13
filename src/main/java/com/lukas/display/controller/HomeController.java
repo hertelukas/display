@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
+
 @Controller
 public class HomeController {
 
@@ -31,6 +33,16 @@ public class HomeController {
     @PostMapping("/display")
     public String handleDisplay(@RequestBody String body) {
         System.out.println("Display received: " + body);
+        return "redirect:/";
+    }
+
+    @PostMapping("/run")
+    public String handleRun(){
+        try {
+            Runtime.getRuntime().exec("python3 main.py");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "redirect:/";
     }
 
