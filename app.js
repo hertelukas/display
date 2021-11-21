@@ -10,9 +10,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function(req, res) {
-    var cal = req.body.ical;
-
-    fs.writeFile('config.dis', cal, function(err) {
+    fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
         if(err){
             console.log("Failed to write to file: " + err);
         }
