@@ -1,6 +1,11 @@
+import datetime
 import json
 from icalendar import Calendar, Event
+from icalendar.cal import Timezone
 import requests
+from requests.api import get
+
+from entry import DateEntry, Entry, TimeEntry
 
 # read config file
 with open('config.dis', 'r') as file:
@@ -16,7 +21,15 @@ if jsonConfig['ical']:
 else:
     print("Failed to get calendar.")
 
+entries = []
 
 for component in cal.walk():
     if component.name == "VEVENT":
-        print(component.get('summary'))
+        if isinstance(component.get('dtstart').dt, datetime.datetime):
+            entry = TimeEntry(component.get('summary'), component.get('dtstart').dt)
+        else:
+            # TODO parse the duration maybe with dtend or dtstamp
+            entry = DateEntry(component.get('summary'), component.get('dtstart').dt, 1)
+
+        entries.append(entry)
+
