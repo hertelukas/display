@@ -34,7 +34,7 @@ today = datetime.date.today();
 entries = parse(cal, today, today + datetime.timedelta(days=7))
 
 # Get weather data
-forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], 3, jsonConfig['api'])
+forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], 4, jsonConfig['api'])
 
 # Drawing
 try:
@@ -57,7 +57,7 @@ try:
 
 
     for i in range(weatherDays):
-        draw.line((480, i * 160, 800, i * 120), fill=0)
+        draw.line((480, i * 120, 800, i * 120), fill=0)
         # Draw weather icon
         iconLength, iconHeight = owfont.getsize(fontmap.getChar(forecast[i].icon))
         draw.text((660, (i * 120 + 60 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
