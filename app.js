@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const bodyParser = require("body-parser");
+const { exec } = require('child_process');
+const { stdout, stderr } = require('process');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -16,6 +18,15 @@ app.get('/', function (req, res) {
     });
 });
 
+app.post('/clear', function(req, res) {
+    exec('python3 clear.py', (err, stdout, stderr) => {
+        if(err){
+            //TODO handle error
+        }
+    });
+    return res.redirect('/');
+});
+
 app.post('/', function(req, res) {
     fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
         if(err){
@@ -23,7 +34,7 @@ app.post('/', function(req, res) {
         }
     })
     return res.redirect('/');
-})
+});
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
