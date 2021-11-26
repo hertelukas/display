@@ -1,11 +1,10 @@
-import datetime
 import json
-from icalendar import Calendar, Event
-from icalendar.cal import Timezone
+from icalendar import Calendar
 import requests
-from requests.api import get
+import datetime
 
-from entry import DateEntry, Entry, TimeEntry
+from entry import DateEntry, Entry, TimeEntry, parse
+from weather import get_forecast
 
 # read config file
 with open('config.dis', 'r') as file:
@@ -21,15 +20,14 @@ if jsonConfig['ical']:
 else:
     print("Failed to get calendar.")
 
-entries = []
+today = datetime.date.today();
 
-for component in cal.walk():
-    if component.name == "VEVENT":
-        if isinstance(component.get('dtstart').dt, datetime.datetime):
-            entry = TimeEntry(component.get('summary'), component.get('dtstart').dt)
-        else:
-            # TODO parse the duration maybe with dtend or dtstamp
-            entry = DateEntry(component.get('summary'), component.get('dtstart').dt, 1)
+# Parse the entries for the next 7 days
+entries = parse(cal, today, today + datetime.timedelta(days=7))
 
-        entries.append(entry)
+# Get weather data
+forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], 3, jsonConfig['api'])
 
+for item in forecast:
+    print(item.max)
+    print(item.min)
