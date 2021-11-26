@@ -13,7 +13,7 @@ from weather import get_forecast
 weatherDays = 3
 
 # Load icon font
-fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'epaper/pic')
+fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'display/font')
 # read config file
 with open('config.dis', 'r') as file:
     config = file.read();
