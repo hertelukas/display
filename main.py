@@ -58,7 +58,7 @@ try:
 
     for i in range(weatherDays):
         if i != 0:
-            draw.line((550, i * 120, 800, i * 120), fill=0)
+            draw.line((620, i * 120, 800, i * 120), fill=0)
 
         # Draw weather icon
         iconLength, iconHeight = owfont.getsize(fontmap.getChar(forecast[i].icon))
@@ -68,12 +68,12 @@ try:
         draw.text((650 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].min)) + "°")
-        draw.text((50 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
+        draw.text((650 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
 
-    # # Calendar
-    # padding = 30
-    # currentHeight = 80
-    # draw.text((510, 20), "Calendar", font=font40, fill=0)
+    # Calendar
+    padding = 30
+    currentHeight = 80
+    draw.text((20, 20), "Kalender", font=font40, fill=0)
 
     # for day in calendarDays:
     #     draw.text((510, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
