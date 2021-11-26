@@ -73,7 +73,7 @@ def get_next_days(cal, days):
         events = parse(cal, day, day + datetime.timedelta(days=1))
 
         for event in events:
-            current.add(event.toString())
+            current.add(event.to_string())
         
         result.append(current)
 
