@@ -9,7 +9,7 @@ class Weather:
 
 
 def get_forecast(lat, lon, days, openAPI):
-    apiResponse = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=%3.2f&lon=%3.2f&exclude=minutely&appid=%s&units=metric' %(lat, lon, openAPI))
+    apiResponse = requests.get('https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely&appid=%s&units=metric' %(lat, lon, openAPI))
     response = apiResponse.json()
 
     forecast = response['daily']
