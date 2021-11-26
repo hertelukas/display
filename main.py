@@ -59,7 +59,7 @@ try:
     for i in range(weatherDays):
         draw.line((i * 160, 0, i * 160, 150), fill=0)
         iconLength, iconHeight = owfont.getsize(fontmap.getChar(forecast[i].icon))
-        draw.text((80 + i * 160)- iconLength / 2, 20), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
+        draw.text(((80 + i * 160)- iconLength / 2, 20), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
         textLength, _ = font20.getsize(str(round(forecast[i].max)) + "°")
         draw.text(((80 + i * 160) - textLength / 2, 85), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
         textLength, _ = font20.getsize(str(round(forecast[i].min)) + "°")
