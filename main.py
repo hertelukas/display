@@ -57,7 +57,9 @@ try:
 
 
     for i in range(weatherDays):
-        draw.line((480, i * 120, 800, i * 120), fill=0)
+        if i != 0:
+            draw.line((480, i * 120, 800, i * 120), fill=0)
+            
         # Draw weather icon
         iconLength, iconHeight = owfont.getsize(fontmap.getChar(forecast[i].icon))
         draw.text((660, (i * 120 + 60 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
