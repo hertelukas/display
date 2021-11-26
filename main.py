@@ -65,10 +65,10 @@ try:
         draw.text((715, (i * 120 + 60 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].max)) + "°")
-        draw.text((650 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
+        draw.text((660 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].min)) + "°")
-        draw.text((650 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
+        draw.text((660 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
 
     # Calendar
     padding = 30
