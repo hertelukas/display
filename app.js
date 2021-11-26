@@ -27,6 +27,15 @@ app.post('/clear', function(req, res) {
     return res.redirect('/');
 });
 
+app.post('/update', function(req, res) {
+    exec('python3 main.py', (err, stdout, stderr) => {
+        if(err){
+            //TODO handle error
+        }
+    });
+    return res.redirect('/');
+});
+
 app.post('/', function(req, res) {
     fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
         if(err){
