@@ -19,18 +19,26 @@ app.get('/', function (req, res) {
 });
 
 app.post('/clear', function(req, res) {
+    console.log("Trying to clear the screen...");
     exec('python3 clear.py', (err, stdout, stderr) => {
         if(err){
             //TODO handle error
+        }else {
+            console.log("Stdout: " + stdout);
+            console.log("Stderr: " + stderr);
         }
     });
     return res.redirect('/');
 });
 
 app.post('/update', function(req, res) {
+    console.log("Trying to update the screen...");
     exec('python3 main.py', (err, stdout, stderr) => {
         if(err){
             //TODO handle error
+        }else {
+            console.log("Stdout: " + stdout);
+            console.log("Stderr: " + stderr);
         }
     });
     return res.redirect('/');
