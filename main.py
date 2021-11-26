@@ -4,6 +4,7 @@ import requests
 import datetime
 import fontmap
 import os
+import socket
 
 from PIL import Image, ImageDraw, ImageFont
 from waveshare_epd import epd7in5_V2
@@ -50,7 +51,6 @@ try:
     icons = Image.new('1', (epd.width, epd.height), 255)
     draw = ImageDraw.Draw(image)
     icons_draw = ImageDraw.Draw(icons)
-    draw.line((0, 150, 480, 150), fill=0)
     draw.line((480, 0, 480, 480), fill=0)
 
     textLength = 10
@@ -87,6 +87,11 @@ try:
     # Info
     width, height = font14.getsize(datetime.datetime.now().strftime("Last update: %H:%M"))
     draw.text((800 - width, 480 - height), datetime.datetime.now().strftime("Last update: %H:%M"), font=font14, fill=0)
+
+    # IP Adress
+    ip =  socket.gethostbyname(socket.gethostname())
+    _, height = font14.getsize(ip)
+    draw.text((0, 480 - height), ip)
 
     epd.display(epd.getbuffer(image))
 
