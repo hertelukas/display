@@ -11,7 +11,7 @@ from waveshare_epd import epd7in5_V2
 from entry import DateEntry, Entry, TimeEntry, parse
 from weather import get_forecast
 
-weatherDays = 3
+weatherDays = 4
 
 # Load icon font
 fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'display/font')
@@ -35,7 +35,7 @@ today = datetime.date.today();
 entries = parse(cal, today, today + datetime.timedelta(days=7))
 
 # Get weather data
-forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], 4, jsonConfig['api'])
+forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], weatherDays, jsonConfig['api'])
 
 # Drawing
 try:
