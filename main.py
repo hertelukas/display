@@ -6,7 +6,7 @@ import fontmap
 import os
 
 from PIL import Image, ImageDraw, ImageFont
-from lib.waveshare_epd import epd7in5_V2
+from waveshare_epd import epd7in5_V2
 from entry import DateEntry, Entry, TimeEntry, parse
 from weather import get_forecast
 
