@@ -1,4 +1,5 @@
 import datetime
+import re
 import recurring_ical_events
 
 class Entry:
@@ -19,12 +20,27 @@ class Entry:
 class TimeEntry(Entry):
     def __init__(self, title, dtstart):
         super().__init__(title, dtstart)
+    
+    def to_string(self):
+        return self.dtstart.time().strftime("%H:%M ") + self.title
+        
 
 class DateEntry(Entry):
     def __init__(self, title, dtstart, days):
         super().__init__(title, dtstart)
         self.days = days
 
+    def to_string(self):
+        return self.title
+
+
+class Day:
+    def __init__(self, date):
+        self.date = date
+        self.items = []
+
+    def add(self, summary):
+        self.items.append(summary)
 
 
 def parse(cal, start_date, end_date):
@@ -46,4 +62,18 @@ def parse(cal, start_date, end_date):
 
     
     result.sort()
+    return result
+
+def get_next_days(cal, days):
+    result = [];
+
+    for i in range(days):
+        current = Day(datetime.date.today() +  datetime.timedelta(days=i))
+        events = parse(cal, datetime.date.today(), datetime.date.today + datetime.timedelta(days=1))
+
+        for event in events:
+            current.add(event.toString())
+        
+        result.append(current)
+
     return result

@@ -8,7 +8,7 @@ import socket
 
 from PIL import Image, ImageDraw, ImageFont
 from waveshare_epd import epd7in5_V2
-from entry import DateEntry, Entry, TimeEntry, parse
+from entry import get_next_days
 from weather import get_forecast
 
 weatherDays = 4
@@ -32,7 +32,7 @@ else:
 today = datetime.date.today();
 
 # Parse the entries for the next 7 days
-entries = parse(cal, today, today + datetime.timedelta(days=7))
+entries = get_next_days(cal, 7)
 
 # Get weather data
 forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], weatherDays, jsonConfig['api'])
@@ -75,15 +75,15 @@ try:
     currentHeight = 80
     draw.text((20, 20), "Kalender", font=font40, fill=0)
 
-    # for day in calendarDays:
-    #     draw.text((510, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
-    #     draw.text((650, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
-    #     currentHeight += padding
-    #     if len(day.items) != 0:
-    #         for event in day.items:
-    #             draw.text((520, currentHeight), event, font=font14, fill=0)
-    #             currentHeight += padding - 10
-    #         currentHeight += 10
+    for day in entries:
+        draw.text((20, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
+        draw.text((160, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
+        currentHeight += padding
+        if len(day.items) != 0:
+            for event in day.items:
+                draw.text((20, currentHeight), event, font=font14, fill=0)
+                currentHeight += padding - 10
+            currentHeight += 10
 
 
     # Info
