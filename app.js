@@ -6,7 +6,14 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
-    res.render('index');
+    fs.readFile('config.dis', 'utf8', function(err, data) {
+        if(err){
+            //TODO handle error
+            return;
+        }
+        return res.render('index', {config: JSON.parse(data)});
+
+    });
 });
 
 app.post('/', function(req, res) {
@@ -19,6 +26,7 @@ app.post('/', function(req, res) {
 })
 
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + "/public"));
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
