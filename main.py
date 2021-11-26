@@ -51,7 +51,7 @@ try:
     icons = Image.new('1', (epd.width, epd.height), 255)
     draw = ImageDraw.Draw(image)
     icons_draw = ImageDraw.Draw(icons)
-    draw.line((480, 0, 480, 480), fill=0)
+    draw.line((620, 0, 620, 480), fill=0)
 
     textLength = 10
 
@@ -65,10 +65,10 @@ try:
         draw.text((715, (i * 120 + 60 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].max)) + "°")
-        draw.text((620 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
+        draw.text((650 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].min)) + "°")
-        draw.text((620 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
+        draw.text((50 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
 
     # # Calendar
     # padding = 30
