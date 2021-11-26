@@ -55,7 +55,7 @@ try:
 
     textLength = 10
 
-
+    # Weather
     for i in range(weatherDays):
         if i != 0:
             draw.line((620, i * 120, 800, i * 120), fill=0)
@@ -81,9 +81,14 @@ try:
         currentHeight += padding
         if len(day.items) != 0:
             for event in day.items:
+                if currentHeight > 450:
+                    break
                 draw.text((20, currentHeight), event, font=font14, fill=0)
                 currentHeight += padding - 10
             currentHeight += 10
+        
+        if currentHeight > 450:
+            break
 
 
     # Info
