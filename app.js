@@ -55,7 +55,7 @@ app.post('/cron', function(req, res) {
             console.log("Failed to write file: " + err);
         } else{
             //Write correct crontab file
-            fs.writeFile('crontab.dis', req.body['cron'] + " cd ~/Documents/display python3 main.py >> display.log\n", function(err){ 
+            fs.writeFile('crontab.dis', req.body['cron'] + " cd ~/Documents/display && python3 main.py >> display.log\n", function(err){ 
                 if(err){
                     console.log("Failed to write file: " + err);
                 } else{
