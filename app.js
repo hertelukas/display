@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
 
 app.post('/clear', function(req, res) {
     console.log("Trying to clear the screen...");
-    exec('python3 clear.py', (err, stdout, stderr) => {
+    exec('python3 clear.py && crontab -r', (err, stdout, stderr) => {
         if(err){
             console.log("Failed: " + err.message)
         }else {
