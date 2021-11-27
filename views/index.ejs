@@ -32,6 +32,12 @@
         <form action="/clear" method="post">
             <button type="submit" class="btn btn-outline-danger">Clear</button>
         </form>
+
+        <form action="/cron" method="post">
+            <label for="cron" class="form-label">Crontab</label>
+            <input class="form-control" type="text" name="cron" id="cron" value="<%=cron%>">
+            <button type="submit" class="btn btn-outline-primary">Übernehmen</button>
+        </form>
     </div>
 
 </body>
