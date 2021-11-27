@@ -50,11 +50,9 @@ def parse(cal, start_date, end_date):
     for component in events:
         if component.name == "VEVENT":
             if isinstance(component.get('dtstart').dt, datetime.datetime):
-                if component.get('dtend').dt.timestamp() < datetime.datetime.now().timestamp():
-                    continue
                 entry = TimeEntry(component.get('summary'), component.get('dtstart').dt)
             else:
-                if component.get('dtend').dt < datetime.date.end_date() + datetime.timedelta(seconds=1):
+                if component.get('dtend').dt == end_date:
                     continue
                 entry = DateEntry(component.get('summary'), component.get('dtstart').dt, (component.get('dtend').dt - component.get('dtstart').dt).days)
 
