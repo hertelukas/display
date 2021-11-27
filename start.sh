@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ~/Documents/display
+cd /home/pi/Documents/display
 node app.js >> server.log
