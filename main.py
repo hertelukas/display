@@ -12,7 +12,7 @@ from entry import get_next_days
 from weather import get_forecast
 
 print("-----------")
-print(datetime.now().strftime("%H:%M"))
+print(datetime.datetime.now().strftime("%H:%M"))
 print("-----------")
 
 weatherDays = 4
