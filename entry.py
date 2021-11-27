@@ -52,7 +52,7 @@ def parse(cal, start_date, end_date):
             if isinstance(component.get('dtstart').dt, datetime.datetime):
                 entry = TimeEntry(component.get('summary'), component.get('dtstart').dt)
             else:
-                if component.get('dtend').dt == end_date:
+                if component.get('dtend').dt == start_date:
                     continue
                 entry = DateEntry(component.get('summary'), component.get('dtstart').dt, (component.get('dtend').dt - component.get('dtstart').dt).days)
 

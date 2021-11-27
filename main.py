@@ -11,6 +11,10 @@ from waveshare_epd import epd7in5_V2
 from entry import get_next_days
 from weather import get_forecast
 
+print("-----------")
+print(datetime.now().strftime("%H:%M"))
+print("-----------")
+
 weatherDays = 4
 
 # Load icon font
