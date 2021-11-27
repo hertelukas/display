@@ -40,7 +40,7 @@ app.post('/update', function(req, res) {
         if(err){
             console.log("Failed: " + err.message);
         }else {
-            console.log("Stdout: " + stdout);
+            console.log("Stdout: \n" + stdout);
             console.log("Stderr: " + stderr);
         }
     });
