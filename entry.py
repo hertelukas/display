@@ -54,7 +54,7 @@ def parse(cal, start_date, end_date):
                     continue
                 entry = TimeEntry(component.get('summary'), component.get('dtstart').dt)
             else:
-                if component.get('dtend').dt < datetime.date.today():
+                if component.get('dtend').dt < datetime.date.end_date() + datetime.timedelta(seconds=1):
                     continue
                 entry = DateEntry(component.get('summary'), component.get('dtstart').dt, (component.get('dtend').dt - component.get('dtstart').dt).days)
 
@@ -68,7 +68,7 @@ def get_next_days(cal, days):
     result = [];
 
     for i in range(days):
-        day = datetime.date.today() + datetime.timedelta(days=i) + datetime.timedelta(seconds=1)
+        day = datetime.date.today() + datetime.timedelta(days=i)
         current = Day(day)
         events = parse(cal, day, day + datetime.timedelta(days=1))
 
