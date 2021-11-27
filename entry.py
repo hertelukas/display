@@ -68,7 +68,7 @@ def get_next_days(cal, days):
     result = [];
 
     for i in range(days):
-        day = datetime.date.today() + datetime.timedelta(days=i)
+        day = datetime.date.today() + datetime.timedelta(days=i) + datetime.timedelta(seconds=1)
         current = Day(day)
         events = parse(cal, day, day + datetime.timedelta(days=1))
 
