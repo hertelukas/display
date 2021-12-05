@@ -119,3 +119,4 @@ dist
 
 # Display files
 *.dis
+__pycache__/

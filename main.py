@@ -5,6 +5,7 @@ import datetime
 import fontmap
 import os
 import socket
+import locale
 
 from PIL import Image, ImageDraw, ImageFont
 from waveshare_epd import epd7in5_V2
@@ -16,6 +17,8 @@ print(datetime.datetime.now().strftime("%H:%M"))
 print("-----------")
 
 weatherDays = 4
+
+locale.setlocale(locale.LC_ALL, '')
 
 # Load icon font
 fontdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'display/font')
