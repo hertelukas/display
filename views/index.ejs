@@ -11,9 +11,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
+    
     <div class="container">
+        <!-- Flash -->
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert"> <%- error %></div>
+        <%}%>
+
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-primary" role="alert"> <%- success %></div>
+        <%}%>
+
         <h1 class="text-center">Bildschim Einstellungen</h1>
         <hr>
+
+        <%if(config) {%>
         <form action="" method="post">
             <label for="ical" class="form-label">iCalendar URL</label>
             <input class="form-control" type="text" name="ical" id="ical" value="<%=config['ical']%>">
@@ -35,6 +47,7 @@
             <small class="text-muted">Macht den Bildschirm komplett leer. Damit sich das Bild nicht einbrennt sollte das unbedingt gemacht werden wenn man den Bildschirm über längere Zeit nicht verwendet.</small>
         </form>
         <br>
+        <%if(cron) {%>
         <form action="/cron" method="post">
             <label for="cron" class="form-label">Crontab</label>
             <input class="form-control" type="text" name="cron" id="cron" value="<%=cron%>">
@@ -45,6 +58,7 @@
             <br>
             <button type="submit" class="btn btn-outline-primary">Übernehmen</button>
         </form>
+        <%}}%>
     </div>
 
 </body>

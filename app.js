@@ -4,17 +4,39 @@ const fs = require('fs');
 const bodyParser = require("body-parser");
 const { exec } = require('child_process');
 const { stdout, stderr } = require('process');
+const flash = require('connect-flash')
+
+//Requiring express sessions
+app.use(require('express-session')({
+    secret: process.env.SECRET || "Please change me",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(flash());
+app.use(function(req, res, next) {
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
 
 app.get('/', function (req, res) {
     fs.readFile('config.dis', 'utf8', function(err, data) {
         if(err){
-            console.log("Failed to open config.dis: " + err.message)
+            console.log("Failed to open config.dis: " + err.message);
+            req.flash('error', 'Konfigurationsdatei konnte nicht geöffnet werden.');
+            return res.render('index', {config: null});
         }
         fs.readFile('cron.dis', 'utf8', function(err, cron){
             if(err){
-                console.log("Failed to open cron.dis: " + err.message)
+                console.log("Failed to open cron.dis: " + err.message);
+                req.flash('error', 'Crontabdatei konnte nicht geöffnet werden.');
+                return res.render('index', {config: JSON.parse(data), cron: null});
+
             }
             return res.render('index', {config: JSON.parse(data), cron: cron});
         });
@@ -23,27 +45,42 @@ app.get('/', function (req, res) {
 
 app.post('/clear', function(req, res) {
     console.log("Trying to clear the screen...");
+    var success = false
     exec('python3 clear.py && crontab -r', (err, stdout, stderr) => {
-        if(err){
-            console.log("Failed: " + err.message)
+        if(err || stderr){
+            console.log("Failed: " + err.message);
+            console.log("Stderr: " + stderr);
         }else {
             console.log("Stdout: " + stdout);
-            console.log("Stderr: " + stderr);
+            success = true;
         }
     });
+    if(success){
+        req.flash('success', "Bildschirm erfolgreich aufgeräumt und crontab entfernt.")
+    } else{
+        req.flash('error', 'Bildschirm aufräumen fehlgeschlagen.');
+    }
+
     return res.redirect('/');
 });
 
 app.post('/update', function(req, res) {
     console.log("Trying to update the screen...");
+    var success = false;
     exec('python3 main.py', (err, stdout, stderr) => {
-        if(err){
+        if(err || stderr){
             console.log("Failed: " + err.message);
+            console.log("Stderr: " + stderr);
         }else {
             console.log("Stdout: \n" + stdout);
-            console.log("Stderr: " + stderr);
+            success = true;
         }
     });
+    if(success){
+        req.flash('success', "Bildschirm erfolgreich aktualisiert.")
+    }else{
+        req.flash('error', 'Bildschirm aufräumen fehlgeschlagen.');
+    }
     return res.redirect('/');
 });
 
@@ -67,6 +104,11 @@ app.post('/cron', function(req, res) {
                             console.log("Command ran successfully.");
                             console.log("Stdout: " + stdout);
                             console.log("Stderr: " + stderr);
+                            if(stderr){
+                                req.flash('error', 'Crontab fehlgeschlagen');
+                            }else{
+                                req.flash('success', 'Crontab erfolgreich übernommen');
+                            }
                             return res.redirect('/');
                         }
                     });
@@ -74,19 +116,26 @@ app.post('/cron', function(req, res) {
             });
         }
     });
-});
-
-app.post('/', function(req, res) {
-    fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
-        if(err){
-            console.log("Failed to write to file: " + err);
-        }
-    })
+    req.flash('error', 'Crontab fehlgeschlagen');
     return res.redirect('/');
 });
 
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + "/public"));
+app.post('/', function(req, res) {
+    var success = true;
+    fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
+        if(err){
+            console.log("Failed to write to file: " + err);
+            success = false;
+        }
+    });
+    if(success){
+        req.flash('success', 'Konfiguration gespeichert');
+    } else{
+        req.flash('error', 'Speichern fehlgeschlagen')
+    }
+    return res.redirect('/');
+});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
