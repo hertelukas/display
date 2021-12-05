@@ -27,15 +27,22 @@
             <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
         <form action="/update" method="post">
-            <button type="submit" class="btn btn-outline-primary">Update</button>
+            <button type="submit" class="btn btn-outline-primary">Aktualisieren</button>
         </form>
         <form action="/clear" method="post">
-            <button type="submit" class="btn btn-outline-danger">Clear</button>
+            <button type="submit" class="btn btn-outline-danger">Löschen</button>
+            <br>
+            <small class="text-muted">Macht den Bildschirm komplett leer. Damit sich das Bild nicht einbrennt sollte das unbedingt gemacht werden wenn man den Bildschirm über längere Zeit nicht verwendet.</small>
         </form>
-
+        <br>
         <form action="/cron" method="post">
             <label for="cron" class="form-label">Crontab</label>
             <input class="form-control" type="text" name="cron" id="cron" value="<%=cron%>">
+            <small class="text-muted">Ein paar Beispiele: <br> "0 * * * *" aktualisiert den Bildschirm jede Stunde
+            <br> "*/10 * * * *" aktualisiert den Bildschirm jede 10 Minuten
+            <br> "*/15 * * * *" aktualisiert den Bildschirm jede 15 Minuten
+            <br> "0 */3 * * *" aktualisiert den Bildschirm jede 3 Stunden</small>
+            <br>
             <button type="submit" class="btn btn-outline-primary">Übernehmen</button>
         </form>
     </div>

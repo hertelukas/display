@@ -99,8 +99,8 @@ try:
 
 
     # Info
-    width, height = font14.getsize(datetime.datetime.now().strftime("Last update: %H:%M"))
-    draw.text((800 - width, 480 - height), datetime.datetime.now().strftime("Last update: %H:%M"), font=font14, fill=0)
+    width, height = font14.getsize(datetime.datetime.now().strftime("Letztes update: %H:%M"))
+    draw.text((800 - width, 480 - height), datetime.datetime.now().strftime("Letztes update: %H:%M"), font=font14, fill=0)
 
     # IP Adress
     ip =  socket.gethostbyname(socket.gethostname())
