@@ -30,16 +30,18 @@ app.get('/', function (req, res) {
             console.log("Failed to open config.dis: " + err.message);
             req.flash('error', 'Konfigurationsdatei konnte nicht geöffnet werden.');
             return res.render('index', {config: null});
+        }else{
+            fs.readFile('cron.dis', 'utf8', function(err, cron){
+                if(err){
+                    console.log("Failed to open cron.dis: " + err.message);
+                    req.flash('error', 'Crontabdatei konnte nicht geöffnet werden.');
+                    return res.render('index', {config: JSON.parse(data), cron: null});
+    
+                }else{
+                    return res.render('index', {config: JSON.parse(data), cron: cron});
+                }
+            });
         }
-        fs.readFile('cron.dis', 'utf8', function(err, cron){
-            if(err){
-                console.log("Failed to open cron.dis: " + err.message);
-                req.flash('error', 'Crontabdatei konnte nicht geöffnet werden.');
-                return res.render('index', {config: JSON.parse(data), cron: null});
-
-            }
-            return res.render('index', {config: JSON.parse(data), cron: cron});
-        });
     });
 });
 
@@ -90,7 +92,6 @@ app.post('/cron', function(req, res) {
                             console.log("Command ran successfully.");
                             console.log("Stdout: " + stdout);
                             console.log("Stderr: " + stderr);
-                            return res.redirect('/');
                         }
                     });
                 }
