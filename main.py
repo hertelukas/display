@@ -103,7 +103,9 @@ try:
     draw.text((800 - width, 480 - height), datetime.datetime.now().strftime("Letztes update: %H:%M"), font=font14, fill=0)
 
     # IP Adress
-    ip =  socket.gethostbyname(socket.gethostname())
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip =  s.getsockname()[0]
     _, height = font14.getsize(ip)
     draw.text((0, 480 - height), ip)
 
