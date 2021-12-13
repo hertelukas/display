@@ -45,42 +45,28 @@ app.get('/', function (req, res) {
 
 app.post('/clear', function(req, res) {
     console.log("Trying to clear the screen...");
-    var success = false
     exec('python3 clear.py && crontab -r', (err, stdout, stderr) => {
         if(err || stderr){
             console.log("Failed: " + err.message);
             console.log("Stderr: " + stderr);
         }else {
             console.log("Stdout: " + stdout);
-            success = true;
         }
     });
-    if(success){
-        req.flash('success', "Bildschirm erfolgreich aufgeräumt und crontab entfernt.")
-    } else{
-        req.flash('error', 'Bildschirm aufräumen fehlgeschlagen.');
-    }
 
     return res.redirect('/');
 });
 
 app.post('/update', function(req, res) {
     console.log("Trying to update the screen...");
-    var success = false;
     exec('python3 main.py', (err, stdout, stderr) => {
         if(err || stderr){
             console.log("Failed: " + err.message);
             console.log("Stderr: " + stderr);
         }else {
             console.log("Stdout: \n" + stdout);
-            success = true;
         }
     });
-    if(success){
-        req.flash('success', "Bildschirm erfolgreich aktualisiert.")
-    }else{
-        req.flash('error', 'Bildschirm aufräumen fehlgeschlagen.');
-    }
     return res.redirect('/');
 });
 
@@ -104,11 +90,6 @@ app.post('/cron', function(req, res) {
                             console.log("Command ran successfully.");
                             console.log("Stdout: " + stdout);
                             console.log("Stderr: " + stderr);
-                            if(stderr){
-                                req.flash('error', 'Crontab fehlgeschlagen');
-                            }else{
-                                req.flash('success', 'Crontab erfolgreich übernommen');
-                            }
                             return res.redirect('/');
                         }
                     });
@@ -116,23 +97,15 @@ app.post('/cron', function(req, res) {
             });
         }
     });
-    req.flash('error', 'Crontab fehlgeschlagen');
     return res.redirect('/');
 });
 
 app.post('/', function(req, res) {
-    var success = true;
     fs.writeFile('config.dis', JSON.stringify(req.body), function(err) {
         if(err){
             console.log("Failed to write to file: " + err);
-            success = false;
         }
     });
-    if(success){
-        req.flash('success', 'Konfiguration gespeichert');
-    } else{
-        req.flash('error', 'Speichern fehlgeschlagen')
-    }
     return res.redirect('/');
 });
 
