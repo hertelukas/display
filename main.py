@@ -58,56 +58,55 @@ try:
     icons = Image.new('1', (epd.width, epd.height), 255)
     draw = ImageDraw.Draw(image)
     icons_draw = ImageDraw.Draw(icons)
-    draw.line((620, 0, 620, 480), fill=0)
-
+    draw.line((540, 0, 540, 480), fill=0)
     textLength = 10
 
     # Weather
     for i in range(weatherDays):
         if i != 0:
-            draw.line((620, i * 120, 800, i * 120), fill=0)
+            draw.line((540, i * 105 + 50, 800, i * 105 + 50), fill=0)
 
         # Draw weather icon
         iconLength, iconHeight = owfont.getsize(fontmap.getChar(forecast[i].icon))
-        draw.text((715, (i * 120 + 60 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
+        draw.text((635, (i * 105 + 100 - iconHeight / 2)), fontmap.getChar(forecast[i].icon), font=owfont, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].max)) + "°")
-        draw.text((660 - (textLength / 2), i * 120 + 40), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
+        draw.text((580 - (textLength / 2), i * 105 + 75), str(round(forecast[i].max)) + "°" , font=font20, fill=0)
 
         textLength, _ = font20.getsize(str(round(forecast[i].min)) + "°")
-        draw.text((660 - (textLength / 2), i * 120 + 80), str(round(forecast[i].min)) + "°", font=font20, fill=0)
+        draw.text((580 - (textLength / 2), i * 105 + 115), str(round(forecast[i].min)) + "°", font=font20, fill=0)
 
     # Calendar
     padding = 30
-    currentHeight = 80
-    draw.text((20, 20), "Kalender", font=font40, fill=0)
+    currentHeight = 120
+    draw.text((80, 65), "Kalender", font=font40, fill=0)
 
     for day in entries:
-        draw.text((20, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
-        draw.text((160, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
+        draw.text((80, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
+        draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
         currentHeight += padding
         if len(day.items) != 0:
             for event in day.items:
-                if currentHeight > 450:
+                if currentHeight > 430:
                     break
-                draw.text((20, currentHeight), event, font=font14, fill=0)
+                draw.text((80, currentHeight), event, font=font14, fill=0)
                 currentHeight += padding - 10
             currentHeight += 10
         
-        if currentHeight > 450:
+        if currentHeight > 430:
             break
 
 
     # Info
     width, height = font14.getsize(datetime.datetime.now().strftime("Letztes update: %H:%M"))
-    draw.text((800 - width, 480 - height), datetime.datetime.now().strftime("Letztes update: %H:%M"), font=font14, fill=0)
+    draw.text((730 - width, 470 - height), datetime.datetime.now().strftime("Letztes update: %H:%M"), font=font14, fill=0)
 
     # IP Adress
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
     ip =  s.getsockname()[0]
     _, height = font14.getsize(ip)
-    draw.text((0, 480 - height), ip)
+    draw.text((80, 470 - height), ip)
 
     epd.display(epd.getbuffer(image))
 
