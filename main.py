@@ -78,7 +78,7 @@ try:
         draw.text((580 - (textLength / 2), i * 105 + 115), str(round(forecast[i].min)) + "°", font=font20, fill=0)
 
     # Calendar
-    padding = 30
+    padding = 35
     currentHeight = 120
     draw.text((80, 65), "Kalender", font=font40, fill=0)
 
