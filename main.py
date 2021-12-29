@@ -39,7 +39,7 @@ else:
 today = datetime.date.today();
 
 # Parse the entries for the next 7 days
-entries = get_next_days(cal, 7)
+entries = get_next_days(cal, 14)
 
 # Get weather data
 forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], weatherDays, jsonConfig['api'])
@@ -82,10 +82,12 @@ try:
     draw.text((80, 65), "Kalender", font=font40, fill=0)
 
     for day in entries:
-        draw.text((80, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
-        draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
-        currentHeight += padding
         if len(day.items) != 0:
+            # Print title
+            draw.text((80, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
+            draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
+            currentHeight += padding
+            # Print events
             for event in day.items:
                 if currentHeight > 430:
                     break
