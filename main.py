@@ -38,8 +38,8 @@ else:
 
 today = datetime.date.today();
 
-# Parse the entries for the next 7 days
-entries = get_next_days(cal, 14)
+# Parse the entries for the next month
+entries = get_next_days(cal, 31)
 
 # Get weather data
 forecast = get_forecast(jsonConfig['lat'], jsonConfig['lon'], weatherDays, jsonConfig['api'])
