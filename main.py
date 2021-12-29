@@ -51,6 +51,7 @@ try:
     epd.Clear()
     font14 = ImageFont.truetype(os.path.join(fontdir, 'font.ttf'), 14)
     font20 = ImageFont.truetype(os.path.join(fontdir, 'font.ttf'), 20)
+    font30 = ImageFont.truetype(os.path.join(fontdir, 'font.tff'), 30)
     font40 = ImageFont.truetype(os.path.join(fontdir, 'font.ttf'), 40)
     owfont = ImageFont.truetype(os.path.join(fontdir, 'owfont.ttf'), 60)
 
@@ -84,14 +85,14 @@ try:
     for day in entries:
         if len(day.items) != 0:
             # Print title
-            draw.text((80, currentHeight), day.date.strftime("%A"), font=font20, fill=0)
-            draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font20, fill=0)
+            draw.text((80, currentHeight), day.date.strftime("%A"), font=font30, fill=0)
+            draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font30, fill=0)
             currentHeight += padding
             # Print events
             for event in day.items:
                 if currentHeight > 430:
                     break
-                draw.text((80, currentHeight), event, font=font14, fill=0)
+                draw.text((80, currentHeight), event, font=font20, fill=0)
                 currentHeight += padding - 10
             currentHeight += 10
         
