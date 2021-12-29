@@ -86,7 +86,7 @@ try:
         if len(day.items) != 0:
             # Print title
             draw.text((80, currentHeight), day.date.strftime("%A"), font=font30, fill=0)
-            draw.text((230, currentHeight), day.date.strftime("%d.%m"), font=font30, fill=0)
+            draw.text((300, currentHeight), day.date.strftime("%d.%m"), font=font30, fill=0)
             currentHeight += padding
             # Print events
             for event in day.items:
