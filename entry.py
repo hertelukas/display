@@ -22,7 +22,7 @@ class TimeEntry(Entry):
         super().__init__(title, dtstart)
     
     def to_string(self):
-        return self.dtstart.time().strftime("%H:%M ") + self.title
+        return self.dtstart.astimezone().strftime("%H:%M ") + self.title
         
 
 class DateEntry(Entry):
